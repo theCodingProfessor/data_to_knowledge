@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Input page for basic demo web application, allows entry of sample user data.">
+  <title>Web Form: Python/Flask</title>
+  <link rel="stylesheet" href="/static/css/site_styles.css">
+  <link rel="icon" href="../static/img/sf.ico">
+</head>
+<body>
+<div>{% include('nav.html') %}</div>
+<main>
+  <h1>Data Entry</h1>
+ <!-- Flexbox container for the form and the plot -->
+  <div class="flex-container">
+    <!-- Form container -->
+    <div class="form-container">
+
+    <fieldset>
+      <legend>Data Range Input Area</legend>
+      <form method="POST" action="/results">
+        <label for="start_at">Start:</label>
+        <input type="number" id="start_at" name="start_at" title="Set Upper Bound" placeholder="Consider Around 0">
+        <label for="end_at">End:</label>
+        <input type="number" id="end_at" name="end_at" title="Set Lower Bound" placeholder="Consider 100">
+        <button type="submit">Submit</button>
+      </form>
+    </fieldset>
+  </div>
+
+    <!-- Plot container -->
+    <div class="plot-container">
+    <article class="topic_intro">
+    <h2>Generated Matplotlib Plot</h2>
+    <img src="../static/img/plot.png" alt="Data Generated"><br><br>
+      </article>
+  </div>
+  </div>
+</main>
+<div>{% include('footer.html') %}</div>
+</body>
+</html>
