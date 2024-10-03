@@ -1,9 +1,13 @@
 
 ## Pandas Introduction
 
-Yes, just like NumPy has various utility functions (`np.sort`, `np.unique`, etc.), **Pandas** has a rich set of methods and functionalities for its core data structures: `Series` and `DataFrame`. These methods provide powerful data manipulation, transformation, and analysis capabilities.
+### What is Pandas
+**Pandas** has a rich set of methods and functionalities for its core data structures: `Series` and `DataFrame`. These methods provide powerful data manipulation, transformation, and analysis capabilities.
 
-Let's go over some of the commonly used **Pandas features**, breaking them down similarly to the NumPy overview you mentioned: a brief description, use case scenario, runtime efficiency, and a short block of demo code. I’ll focus on the methods associated with `Series` and `DataFrame`.
+The most common used **Pandas features** are described next with: a brief description,
+use case scenario, runtime efficiency, and a short block of demo code.
+
+Methods described are associated with `Series` and `DataFrame`.
 
 ### **Pandas Series Features:**
 

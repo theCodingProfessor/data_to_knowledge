@@ -1,5 +1,5 @@
 
-## Pandas vs. Numpy ()
+## Pandas vs. Numpy
 
 Pandas and NumPy are complementary libraries in Python, but they serve distinct purposes within the data processing and analysis stack. Here's how they relate, and where Pandas fits in with respect to NumPy:
 
