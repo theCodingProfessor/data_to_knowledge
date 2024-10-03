@@ -1,0 +1,87 @@
+// Create User Table
+# Create the users table
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(150) NOT NULL
+)
+''')
+
+# Commit and close the connection
+conn.commit()
+conn.close()
+
+
+INSERT INTO players (username, password)
+VALUES (
+    'abc'
+    'abc'
+);
+
+
+
+// Create Players Table
+CREATE TABLE players (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(150) NOT NULL,
+    health INTEGER NOT NULL,
+    wisdom REAL NOT NULL, -- Use REAL for floating-point values
+    skills TEXT,  -- JSON-encoded list of skills
+    items TEXT,  -- JSON-encoded list of skills
+    score INTEGER NOT NULL
+ );
+
+// Create Players Table
+CREATE TABLE players (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(150) NOT NULL,
+    health INTEGER NOT NULL,
+    wisdom REAL NOT NULL, -- Use REAL for floating-point values
+    skills TEXT,  -- JSON-encoded list of skills
+    items TEXT,  -- JSON-encoded list of skills
+    score INTEGER NOT NULL
+ );
+
+
+INSERT INTO players (username, password, health, wisdom, skills, items, score)
+VALUES (
+    'player1',
+    'hashed_password',
+    100,
+    75.5,
+    '["agility", "alchemy"]',
+    '["debate", "potion"]',
+    2000
+);
+
+// view all records in the database
+Select * from players
+
+// view select records in the database
+SELECT * FROM players WHERE wisdom > .75;
+
+// Insert another new player with
+
+INSERT INTO players (username, password, health, wisdom, skills, items, score)
+VALUES (
+    'player2',
+    'hashed_password',
+    100,
+    80.5,
+    '["charity", "compassion"]',
+    '["crystal", "food"]',
+    3000
+);
+
+# Insert new player record
+cursor.execute('''
+    INSERT INTO players (username, password, health, wisdom, skills, items, score)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+''', (new_player['username'], new_player['password'], new_player['health'], new_player['wisdom'], new_player['skills'], new_player['items'], new_player['score']))
+
+# Commit the changes and close the connection
+conn.commit()
+conn.close()
