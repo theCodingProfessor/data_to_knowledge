@@ -1,6 +1,7 @@
 
 ## Array Computing with NumPy and Pandas
 
+### What is Array Computing
 **Array computing** refers to the practice of performing operations on entire arrays (collections of data elements) in a highly efficient manner. In contrast to traditional scalar computing, where operations are applied to individual elements one at a time, array computing takes advantage of vectorized operations that allow entire arrays to be processed simultaneously or in parallel.
 
 This concept is essential in scientific computing, data analysis, and high-performance computing because it significantly speeds up the execution of operations involving large datasets.
