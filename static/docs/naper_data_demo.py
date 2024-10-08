@@ -3,13 +3,87 @@ CLinton Garwood
 Data Demonstration using
 open data via data.naperville.il.us
 """
+
 import os
 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def main():
-    demo_examine_data()
+    # demo_examine_data()
+    examine_trees()
+    return
+
+
+def examine_trees():
+
+    # list files in directory
+    file_name = 'Naper_Right_of_Way_Tree_Inventory.csv'
+    # extract csv data from filepath
+    # Read and display files in directory
+    files = os.listdir()
+    # Print only CSV files from the directory
+    csv_files = [file for file in files if file.endswith('.csv')]
+    if not csv_files:
+        print("No CSV files found in the current directory.")
+    else:
+        # Display the list of CSV files
+        print("Available CSV files:")
+        for idx, file in enumerate(csv_files):
+            print(f"{idx + 1}: {file}")
+
+    file_name = input("From the list select a file: ")
+    if os.path.exists(file_name):
+        data = pd.read_csv(file_name)
+        print("File loaded successfully!")
+    else:
+        print(f"The file '{file_name}' does not exist.")
+        data = None
+
+    # Step 2: Preview and Statistical Summary
+    print("Preview of the data:")
+    print(data.head())
+
+    # Counting of collection as .count()
+    print(f'\n\tCollection Counting:')
+
+    print(f'\t\tTotal Elements: {data.size}')
+    df_rows, df_cols = data.shape
+    print(f'\t\tRow Count: {df_rows}')
+    print(f'\t\tColumn Count: {df_cols}')
+
+    # Counting of collection as .count()
+    print(f'\n\tCollection Counting:')
+
+    # Display Column names
+    column_names = data.columns
+    print(f"\n\t\tColumn Names:")
+    for each in column_names:
+        print(f'\t\t\t{each}')
+
+    print(f"\n\t\tUnique Values in Columns:")
+    # Unique (filter keys)
+    column_name = input("\t\tColumn Name to Filter, exit with 0: ")
+    unique_filter = data[column_name].unique()
+    print(f'\n\tUnique Terms from {column_name} Column:')
+    print(f'\t\tUnique Terms: {unique_filter}')
+    data_label = input(f"\n\t\tFilter a terms (from above): ")
+    while column_name != "0":
+        # # Filter for 'term' in column
+        try:
+            filtered_df = data[data[column_name].str.contains(data_label)]
+            f_row, f_column = filtered_df.shape
+            print(f'\nData Report: {f_row} rows at size {filtered_df.size}.')
+            print(filtered_df[['date_rept', column_name, 'street']])
+            # filter_traffic(filtered_df)
+            # draw_chart(filtered_df)
+        except ValueError as ve:
+            print(f'Found {ve}')
+        data_label = input("\n\t\tNew Filter... or exit=0: ")
+        if data_label == '0':
+            column_name = '0'
+
     return
 
 
@@ -45,16 +119,26 @@ def demo_examine_data():
 
     print(f"\n\t\tUnique Values in Columns:")
     # Unique (filter keys)
-    column_name = input("Enter Column to Filter: ")
-    unique_filter = data[column_name].unique()
-    print(f'\n\tUnique Terms from {column_name} Column:')
-    print(f'\t\tUnique Terms: {unique_filter}')
+    column_name = input("\t\tColumn Name to Filter, or exit=0: ")
+    while column_name != "0":
+        unique_filter = data[column_name].unique()
+        print(f'\n\tUnique Terms from {column_name} Column:')
+        print(f'\t\tUnique Terms: {unique_filter}')
+        # # Filter for 'term' in column
+        # print(f'\nFilter Product Column by `Apple` Keyword: ')
+        data_label = input("Add Unique Filter... from above: ")
+        filtered_df = data[data[column_name].str.contains(data_label)]
+        f_row, f_column = filtered_df.shape
+        print(f'\nData Report: {f_row} rows at size {filtered_df.size}.')
+        print(filtered_df[['date_rept', 'category', 'street']])
+        filter_traffic(filtered_df)
+        # draw_chart(filtered_df)
+        data_label = input("New Filter... or exit=0: ")
+        if data_label == '0':
+            break
 
     # count_products = df['Product'].count()
     # print(f'\n\t\tCount in `Product`: {count_products}')
-    #
-
-
 
     # lf_df = pd.DataFrame(data)
     # sample_data = {'Product': ['Apple iPhone', 'Samsung Galaxy', 'Apple Macbook', 'Google Pixel'], 'Price': [999, 799, 1299, 899]}
@@ -122,12 +206,55 @@ def demo_examine_data():
     # print(f'\n\tMin and Max:')
     # print(f"\t\tMax: {max_price}")
     # print(f'\t\tMin: {min_price}')
-    #
 
     # # report on na values (row number)
     # # column filter
 
+    return
 
+
+def filter_alcohol(filtered_df):
+    filtered_df['date_rept'] = pd.to_datetime(filtered_df['date_rept'])
+    # Extract the day of the week from 'date_rept'
+    filtered_df['day_of_week'] = filtered_df['date_rept'].dt.day_name()
+
+    # Group by the day of the week and count the number of incidents
+    day_counts = filtered_df['day_of_week'].value_counts().reindex(
+        ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    )
+
+    # Plot the data using Matplotlib
+    plt.figure(figsize=(10, 6))
+    plt.bar(day_counts.index, day_counts.values, color='skyblue')
+    plt.xlabel('Day of the Week')
+    plt.ylabel('Number of Incidents')
+    plt.title('Alcohol-related Incidents by Day of the Week')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+    return
+
+
+def filter_traffic(filtered_df):
+    filtered_df['date_rept'] = pd.to_datetime(filtered_df['date_rept'])
+    # Extract the day of the week from 'date_rept'
+    filtered_df['day_of_week'] = filtered_df['date_rept'].dt.day_name()
+
+    # Group by the day of the week and count the number of incidents
+    day_counts = filtered_df['day_of_week'].value_counts().reindex(
+        ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    )
+
+    # Plot the data using Matplotlib
+    plt.figure(figsize=(10, 6))
+    plt.bar(day_counts.index, day_counts.values, color='orange')
+    plt.xlabel('Day of the Week')
+    plt.ylabel('Number of Accidents')
+    plt.title('Traffic-related Incidents by Day of the Week')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
 
 
 main()
